@@ -4,11 +4,11 @@
     "slug": "orchids_app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/Icon_orchidApp.png",
+    "icon": "./assets/images/Icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/Icon_orchidApp.png",
+      "image": "./assets/images/Icon.png",
       "resizeMode": "contain",
       "backgroundColor": "#FFDEE3"
     },
@@ -21,14 +21,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/Icon_orchidApp.png",
+        "foregroundImage": "./assets/images/Icon.png",
         "backgroundColor": "#FFDEE3"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.anonymous.orchids_app"
     },
     "web": {
-      "favicon": "./assets/images/Icon_orchidApp.png",
+      "favicon": "./assets/images/Icon.png",
       "bundler": "metro"
     },
     "plugins": [
