@@ -11,19 +11,21 @@ import {
 } from 'react-native';
 import { useLocalSearchParams, router } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { colors, commonStyles } from '../../styles/commonStyles';
 import { orchidsData } from '../../data/orchids';
 import Icon from '../../components/Icon';
+import { useTheme } from '../../hooks/useTheme';
 
 const { width } = Dimensions.get('window');
 
 export default function OrchidDetailScreen() {
   const { id } = useLocalSearchParams();
   const orchid = orchidsData.find(o => o.id === id);
+  const { colors, isDark } = useTheme();
+  const styles = createStyles(colors, isDark);
 
   if (!orchid) {
     return (
-      <SafeAreaView style={commonStyles.container}>
+      <SafeAreaView style={styles.container}>
         <View style={styles.errorContainer}>
           <Text style={styles.errorText}>Orchidée non trouvée</Text>
           <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
@@ -59,7 +61,7 @@ export default function OrchidDetailScreen() {
   };
 
   return (
-    <SafeAreaView style={commonStyles.container}>
+    <SafeAreaView style={styles.container}>
       <ScrollView style={styles.container} showsVerticalScrollIndicator={false}>
         {/* Header with back button */}
         <View style={styles.header}>
@@ -178,7 +180,7 @@ export default function OrchidDetailScreen() {
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any, isDark?: boolean) => StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: colors.background,
@@ -190,7 +192,7 @@ const styles = StyleSheet.create({
     zIndex: 10,
   },
   backButtonContainer: {
-    backgroundColor: 'rgba(255, 255, 255, 0.92)',
+    backgroundColor: isDark ? 'rgba(45, 45, 45, 0.95)' : 'rgba(255, 255, 255, 0.92)',
     borderRadius: 24,
     padding: 12,
     shadowColor: colors.shadow,
@@ -202,7 +204,7 @@ const styles = StyleSheet.create({
     shadowRadius: 8,
     elevation: 6,
     borderWidth: 1,
-    borderColor: 'rgba(255, 255, 255, 0.2)',
+    borderColor: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(255, 255, 255, 0.2)',
   },
   heroImage: {
     width: width,
@@ -242,7 +244,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 16,
     paddingVertical: 8,
     borderRadius: 20,
-    shadowColor: '#000',
+    shadowColor: colors.shadow,
     shadowOffset: {
       width: 0,
       height: 2,
