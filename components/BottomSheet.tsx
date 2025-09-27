@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState, useMemo } from 'react';
 import {
   View,
   Text,
@@ -10,7 +10,7 @@ import {
   Dimensions
 } from 'react-native';
 import { PanGestureHandler, State } from 'react-native-gesture-handler';
-import { colors } from '../styles/commonStyles';
+import { useTheme } from '../hooks/useTheme';
 
 interface SimpleBottomSheetProps {
   children?: React.ReactNode;
@@ -32,6 +32,8 @@ const SimpleBottomSheet: React.FC<SimpleBottomSheetProps> = ({
   isVisible = false,
   onClose
 }) => {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const translateY = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
   const gestureTranslateY = useRef(new Animated.Value(0)).current;
   const backdropOpacity = useRef(new Animated.Value(0)).current;
@@ -207,7 +209,7 @@ const SimpleBottomSheet: React.FC<SimpleBottomSheetProps> = ({
 
 SimpleBottomSheet.displayName = 'SimpleBottomSheet';
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'flex-end',
@@ -218,30 +220,32 @@ const styles = StyleSheet.create({
   },
   bottomSheet: {
     height: SNAP_POINTS.FULL,
-    backgroundColor: colors.background || '#ffffff',
-    borderTopLeftRadius: 20,
-    borderTopRightRadius: 20,
-    shadowColor: '#000',
+    backgroundColor: colors.background || '#FFFFFF',
+    borderTopLeftRadius: 24,
+    borderTopRightRadius: 24,
+    shadowColor: colors.shadow,
     shadowOffset: {
       width: 0,
-      height: -3,
+      height: -6,
     },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+    shadowOpacity: 0.25,
+    shadowRadius: 12,
+    elevation: 16,
   },
   handle: {
-    width: 40,
-    height: 4,
-    backgroundColor: colors.grey || '#cccccc',
-    borderRadius: 2,
+    width: 48,
+    height: 5,
+    backgroundColor: colors.grey,
+    borderRadius: 3,
     alignSelf: 'center',
-    marginTop: 8,
-    marginBottom: 8,
+    marginTop: 12,
+    marginBottom: 16,
+    opacity: 0.6,
   },
   contentContainer: {
     flex: 1,
-    padding: 16,
+    paddingHorizontal: 24,
+    paddingBottom: 24,
   },
   defaultContent: {
     flex: 1,
@@ -249,16 +253,21 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
+    fontSize: 28,
+    fontWeight: '700',
+    fontFamily: 'Playfair_700Bold',
     color: colors.text,
     marginBottom: 16,
+    textAlign: 'center',
+    letterSpacing: -0.5,
   },
   description: {
     fontSize: 16,
-    color: colors.text,
+    fontFamily: 'Inter_400Regular',
+    color: colors.secondary,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 24,
+    lineHeight: 24,
   },
 });
 

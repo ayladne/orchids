@@ -1,5 +1,6 @@
+import React, { useMemo } from 'react';
 import { Text, TouchableOpacity, StyleSheet, ViewStyle, TextStyle } from 'react-native';
-import { colors } from '../styles/commonStyles';
+import { useTheme } from '../hooks/useTheme';
 
 interface ButtonProps {
   text: string;
@@ -9,6 +10,9 @@ interface ButtonProps {
 }
 
 export default function Button({ text, onPress, style, textStyle }: ButtonProps) {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
+  
   return (
     <TouchableOpacity style={[styles.button, style]} onPress={onPress} activeOpacity={0.7}>
       <Text style={[styles.buttonText, textStyle]}>{text}</Text>
@@ -16,22 +20,32 @@ export default function Button({ text, onPress, style, textStyle }: ButtonProps)
   );
 }
 
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
   button: {
     backgroundColor: colors.primary,
-    padding: 14,
-    borderRadius: 8,
-    marginTop: 10,
+    paddingHorizontal: 24,
+    paddingVertical: 16,
+    borderRadius: 16,
+    marginTop: 12,
     width: '100%',
-    boxShadow: '0px 2px 3.84px rgba(0, 0, 0, 0.25)',
-    elevation: 5,
+    elevation: 8,
+    shadowColor: colors.primary,
+    shadowOffset: {
+      width: 0,
+      height: 6,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
     alignItems: 'center',
     justifyContent: 'center',
+    borderWidth: 0,
   },
   buttonText: {
-    color: '#fff',
+    color: '#FFFFFF',
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: '600',
+    fontFamily: 'Inter_600SemiBold',
     textAlign: 'center',
+    letterSpacing: 0.3,
   },
 });

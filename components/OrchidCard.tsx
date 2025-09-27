@@ -1,7 +1,8 @@
 
-import React from 'react';
+import React, { useMemo } from 'react';
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native';
-import { colors, commonStyles } from '../styles/commonStyles';
+import { commonStyles } from '../styles/commonStyles';
+import { useTheme } from '../hooks/useTheme';
 import { Orchid } from '../data/orchids';
 import Icon from './Icon';
 
@@ -13,6 +14,8 @@ interface OrchidCardProps {
 }
 
 const OrchidCard: React.FC<OrchidCardProps> = ({ orchid, onPress, featured = false, horizontal = false }) => {
+  const { colors } = useTheme();
+  const styles = useMemo(() => createStyles(colors), [colors]);
   const getCareColor = (level: string) => {
     switch (level) {
       case 'Facile': return colors.success;
@@ -20,6 +23,21 @@ const OrchidCard: React.FC<OrchidCardProps> = ({ orchid, onPress, featured = fal
       case 'Difficile': return '#F44336';
       default: return colors.textLight;
     }
+  };
+
+  const getColorHex = (colorName: string): string => {
+    const colorMap: { [key: string]: string } = {
+      'Blanc': '#FFFFFF',
+      'Rose': colors.accent,
+      'Violet': colors.primary,
+      'Jaune': '#FBBF24',
+      'Orange': '#FB923C',
+      'Rouge': colors.error,
+      'Bleu': '#3B82F6',
+      'Vert': colors.success,
+      'Brun': '#92400E',
+    };
+    return colorMap[colorName] || colors.grey;
   };
 
   return (
@@ -91,35 +109,24 @@ const OrchidCard: React.FC<OrchidCardProps> = ({ orchid, onPress, featured = fal
   );
 };
 
-const getColorHex = (colorName: string): string => {
-  const colorMap: { [key: string]: string } = {
-    'Blanc': '#FFFFFF',
-    'Rose': '#E91E63',
-    'Violet': '#9C27B0',
-    'Jaune': '#FFC107',
-    'Orange': '#FF9800',
-    'Rouge': '#F44336',
-    'Bleu': '#2196F3',
-    'Vert': '#4CAF50',
-    'Brun': '#795548',
-  };
-  return colorMap[colorName] || colors.grey;
-};
-
-const styles = StyleSheet.create({
+const createStyles = (colors: any) => StyleSheet.create({
   card: {
     backgroundColor: colors.card,
-    borderRadius: 20,
+    borderRadius: 24,
     marginVertical: 8,
     marginHorizontal: 16,
-    boxShadow: `0px 4px 12px ${colors.shadow}`,
-    elevation: 4,
+    boxShadow: `0px 8px 24px ${colors.shadowLight}`,
+    borderWidth: 1,
+    borderColor: colors.greyLight,
+    elevation: 6,
     overflow: 'hidden',
   },
   featuredCard: {
-    marginVertical: 12,
-    boxShadow: `0px 8px 24px ${colors.shadow}`,
-    elevation: 8,
+    marginVertical: 16,
+    boxShadow: `0px 16px 40px ${colors.shadow}`,
+    borderColor: colors.primaryLight,
+    borderWidth: 2,
+    elevation: 12,
   },
   image: {
     width: '100%',
@@ -142,21 +149,24 @@ const styles = StyleSheet.create({
     marginRight: 12,
   },
   name: {
-    fontSize: 20,
-    fontWeight: '600',
+    fontSize: 22,
+    fontWeight: '700',
     color: colors.text,
     fontFamily: 'Inter_600SemiBold',
-    marginBottom: 4,
+    marginBottom: 6,
+    letterSpacing: -0.5,
   },
   featuredName: {
-    fontSize: 24,
-    fontWeight: '700',
+    fontSize: 26,
+    fontWeight: '800',
+    color: colors.primary,
   },
   scientificName: {
     fontSize: 14,
     fontStyle: 'italic',
     color: colors.textLight,
     fontFamily: 'Inter_400Regular',
+    marginBottom: 2,
   },
   careLevel: {
     paddingHorizontal: 8,
