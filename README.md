@@ -87,10 +87,6 @@ L'application contient des informations sur 6 espèces d'orchidées :
 - **Vanda** - Difficile
 - **Oncidium** (Orchidées danseuses) - Modéré
 
-## 📄 Licence
-
-Ce projet est sous licence MIT.
-
 ## 👤 Auteur
 
 **Ayladne** - [GitHub](https://github.com/ayladne)
