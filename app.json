@@ -4,13 +4,13 @@
     "slug": "orchids_app",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/natively-dark.png",
-    "userInterfaceStyle": "dark",
+    "icon": "./assets/images/Icon_orchidApp.png",
+    "userInterfaceStyle": "light",
     "newArchEnabled": true,
     "splash": {
-      "image": "./assets/images/natively-dark.png",
+      "image": "./assets/images/Icon_orchidApp.png",
       "resizeMode": "contain",
-      "backgroundColor": "#000000"
+      "backgroundColor": "#FFDEE3"
     },
     "ios": {
       "supportsTablet": true,
@@ -21,14 +21,14 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/natively-dark.png",
-        "backgroundColor": "#000000"
+        "foregroundImage": "./assets/images/Icon_orchidApp.png",
+        "backgroundColor": "#FFDEE3"
       },
       "edgeToEdgeEnabled": true,
       "package": "com.anonymous.orchids_app"
     },
     "web": {
-      "favicon": "./assets/images/final_quest_240x240.png",
+      "favicon": "./assets/images/Icon_orchidApp.png",
       "bundler": "metro"
     },
     "plugins": [
