@@ -28,7 +28,7 @@
       "package": "com.anonymous.orchids_app"
     },
     "web": {
-      "favicon": "./assets/images/Icon.png",
+      "favicon": "./public/favicon.ico",
       "bundler": "metro"
     },
     "plugins": [
